@@ -8,7 +8,7 @@
   - The page should also show overall data (number of entries, etc) about the dataset to the user.
   - This data must be two way bound so changes are reflected immediately.
   - It must be built using raw HTML - no Jade/Handlebars/etc.
-  - The page must be properly styled with custom CSS - use the public/css folder for css files.
+  - The page must be properly styled with custom CSS - use the public/css folder for css files. (feel free to use a css framework - Material Design/Bootstrap/etc)
   - You must add at least one package from NPM for the node server and one package for the angular.js
   - At least one other feature of your choosing must be added. 
   
@@ -19,5 +19,7 @@
 Runs like a typical express app:
 
     node app.js
+    
+    head to http;//localhost:3000 in your browser
 
 
