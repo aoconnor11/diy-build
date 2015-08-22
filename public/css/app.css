@@ -1,5 +1,20 @@
 /* app css stylesheet */
-
+h1{
+  color:blue;
+  font-family:verdana;
+  font-size:300%;
+}
+table, th , td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
