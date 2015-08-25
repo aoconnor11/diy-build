@@ -7,7 +7,6 @@ var app = angular.module('myApp', ['ngResource']);
 
 app.factory("Post", function($resource){
  return $resource("/api/name");
- // return $resource("/data/test");
 })
 
 
@@ -15,9 +14,8 @@ app.factory("Post", function($resource){
 
 app.controller('CompanyCtrl', function($scope, $http, Post) {
 
-  $http.get("data/test.json")
-      .success(function (response) {$scope.names = response.records;});
-
+  $http.get("/api/name")
+      .success(function (response) {$scope.names = response;});
   $scope.addRow = function(){
     $scope.names.push({ 'Name':$scope.Name, 'City': $scope.City, 'Country': $scope.Country});
     var dataObj = {
@@ -25,9 +23,9 @@ app.controller('CompanyCtrl', function($scope, $http, Post) {
       City : $scope.City,
       Country : $scope.Country
     };
-  //  Post.save($scope.names);
 
-   var res= $http.post("/api/name", dataObj);
+   var res= $http.post("/api/name", $scope.names);
+
    res.success(function(data, status, headers, config) {
       $scope.message = data;
     });
@@ -47,7 +45,6 @@ app.controller('CompanyCtrl', function($scope, $http, Post) {
     var comArr = eval( $scope.names );
     for( var i = 0; i < comArr.length; i++ ) {
       if( comArr[i].Name === Name ) {
-        Post.delete({id:Name});
         index = i;
         break;
       }
@@ -56,6 +53,7 @@ app.controller('CompanyCtrl', function($scope, $http, Post) {
       alert( "Something gone wrong" );
     }
     $scope.names.splice( index, 1 );
+    var res= $http.post("/api/name", $scope.names);
   };
 });
 
