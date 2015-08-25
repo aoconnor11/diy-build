@@ -3,18 +3,43 @@
 /* Controllers */
 
 
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ngResource']);
 
-app.controller('CompanyCtrl', function($scope, $http) {
+app.factory("Post", function($resource){
+ return $resource("/api/name");
+ // return $resource("/data/test");
+})
+
+
+
+
+app.controller('CompanyCtrl', function($scope, $http, Post) {
 
   $http.get("data/test.json")
       .success(function (response) {$scope.names = response.records;});
 
   $scope.addRow = function(){
     $scope.names.push({ 'Name':$scope.Name, 'City': $scope.City, 'Country': $scope.Country});
+    var dataObj = {
+      Name : $scope.Name,
+      City : $scope.City,
+      Country : $scope.Country
+    };
+  //  Post.save($scope.names);
+
+   var res= $http.post("/api/name", dataObj);
+   res.success(function(data, status, headers, config) {
+      $scope.message = data;
+    });
+    res.error(function(data, status, headers, config) {
+     console.log( "failure message: " + JSON.stringify({data: data}));
+    });
+
     $scope.Name='';
     $scope.City='';
     $scope.Country='';
+
+
   }
 
   $scope.removeRow = function(Name){
@@ -22,6 +47,7 @@ app.controller('CompanyCtrl', function($scope, $http) {
     var comArr = eval( $scope.names );
     for( var i = 0; i < comArr.length; i++ ) {
       if( comArr[i].Name === Name ) {
+        Post.delete({id:Name});
         index = i;
         break;
       }

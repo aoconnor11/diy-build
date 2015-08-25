@@ -3,7 +3,7 @@
  * Module dependencies
  */
 //Routes
-var api = require('./routes/api');
+var api = require('./routes');
 
 // serve index and view partials
 app.get('/', routes.index);
